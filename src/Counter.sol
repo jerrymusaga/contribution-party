@@ -1,14 +1,23 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-contract Counter {
-    uint256 public number;
+import {MembershipNFT} from "./NFT.sol";
 
-    function setNumber(uint256 newNumber) public {
-        number = newNumber;
+contract Contribution {
+
+    struct Party {
+        string name;
+        uint256 joinFee;
+        bool active;
+        mapping(address => bool) members;
+        uint256 memberCount;
     }
 
-    function increment() public {
-        number++;
+    mapping(uint => Party) public parties;
+    uint public partyCount;
+    MembershipNFT public nft;
+
+    constructor(address nftAddress) {
+        nft = MembershipNFT(nftAddress);
     }
 }
